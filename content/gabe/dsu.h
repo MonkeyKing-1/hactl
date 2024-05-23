@@ -1,27 +1,42 @@
-struct DSU{
+/**
+ * Author: GABE WU??
+ * Date: 2022-04-29
+ * Source: gabe wu
+ * Description: DSU
+ * Status: Used, works well
+ */
+
+struct DSU
+{
     std::vector<int> par, sz;
     int n;
 
     DSU() {}
     DSU(int _n) { init(_n); }
-    void init(int _n) {
+    void init(int _n)
+    {
         n = _n;
         sz.assign(n, 1);
         par.assign(n, 0);
         std::iota(par.begin(), par.end(), 0);
     }
 
-    void join(int x, int y) {
+    void join(int x, int y)
+    {
         int xr = root(x), yr = root(y);
-        if(xr == yr) return;
+        if (xr == yr)
+            return;
 
-        if(sz[xr] < sz[yr]) swap(xr, yr);
+        if (sz[xr] < sz[yr])
+            swap(xr, yr);
         par[yr] = xr;
         sz[xr] += sz[yr];
     }
 
-    int root(int x){ //Uses path splitting
-        while(par[x] != x) {
+    int root(int x)
+    { // Uses path splitting
+        while (par[x] != x)
+        {
             int prev = x;
             x = par[x];
             par[prev] = par[x];
@@ -29,5 +44,5 @@ struct DSU{
         return x;
     }
 
-    bool together(int x, int y) {return root(x) == root(y);}
+    bool together(int x, int y) { return root(x) == root(y); }
 };
